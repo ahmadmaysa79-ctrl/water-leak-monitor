@@ -1,0 +1,20 @@
+بناء APK — توقعات واقعية
+========================
+
+1) لا يوجد ضمان "صفر أخطاء" قبل أول بناء فعلي. أول APK غالباً يحتاج تعديل إصدارات NDK أو المتطلبات.
+
+2) macOS: Buildozer الرسمي يستهدف لينكس. الأسهل:
+   - تشغيل أوبنتو (جهاز/VM/WSL2) أو
+   - GitHub Actions (ملف .github/workflows/android-apk.yml) أو
+   - حاوية Docker إن توفرت صورة buildozer متوافقة مع مشروعك.
+
+3) tflite-runtime على python-for-android قد يفشل (رابط لمناقشات: https://github.com/kivy/python-for-android/issues/3191 ).
+ إن فشل البناء عند tflite-runtime:
+   - مؤقتاً احذف tflite-runtime من سطر requirements في buildozer.spec
+   - أعد البناء؛ التطبيق سيعمل لكن تحليل الصور عبر النموذج لن يعمل حتى تضيف حلاً (وصفة أخرى / دمج مكتبة).
+
+4) بعد البناء: الملف غالباً bin/watermonitor-*.apk
+
+5) ثبّت على الهاتف "تثبيت من مصادر غير معروفة" أو عبر adb install.
+
+6) ضع humidity_model.tflite و labels.txt و logo.png و alarm.wav في المشروع قبل البناء إن أردتها داخل الـ APK (source.include_exts يشملها).

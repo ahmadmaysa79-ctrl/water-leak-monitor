@@ -1,0 +1,9 @@
+kivy>=2.2.0
+kivymd>=1.1.0
+Pillow>=10.0.0
+numpy>=1.24.0
+plyer>=2.1.0
+# tflite-runtime: لا توجد عجلات PyPI لـ macOS غالباً؛ inference.py يستخدم tensorflow.lite من حزمة tensorflow
+tensorflow>=2.13.0; sys_platform == "darwin"
+tflite-runtime>=2.13.0; sys_platform == "linux"
+tflite-runtime>=2.13.0; sys_platform == "win32"

@@ -1,0 +1,46 @@
+# بناء APK على GitHub (مجاني للمستودعات العامة ضمن حدود الدقائق).
+# تشغيل يدوي: Actions → "Build Android APK" → Run workflow
+# المستودع يجب أن يكون جذر المشروع حيث يوجد buildozer.spec
+
+name: Build Android APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 180
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            git zip unzip openjdk-17-jdk autoconf libtool pkg-config \
+            zlib1g-dev libncurses5-dev libncursesw5-dev cmake \
+            libffi-dev libssl-dev
+
+      - name: Install Buildozer and Cython
+        run: |
+          python -m pip install --upgrade pip
+          pip install "cython<3.12" buildozer
+
+      - name: Build debug APK
+        env:
+          BUILDOZER_WARN_ON_ROOT: "0"
+        run: buildozer android debug
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: watermonitor-debug-apk
+          path: bin/*.apk

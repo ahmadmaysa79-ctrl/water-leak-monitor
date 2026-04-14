@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Kivy / Buildozer
+.buildozer/
+bin/
+*.apk
+*.aab
+
+# محلي
+.DS_Store
+*.sqlite
+assets/_live_frame.png
+
+# IDE
+.idea/
+.vscode/
