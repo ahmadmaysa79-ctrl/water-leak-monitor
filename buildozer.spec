@@ -25,6 +25,8 @@ warn_on_root = 1
 android.api = 33
 android.minapi = 24
 android.ndk = 25b
+# يطابق حزمة build-tools في CI (يحتوي aidl)
+android.build_tools = 33.0.2
 android.accept_sdk_license = True
 
 # تسريع البناء: هاتف حديث arm64 فقط (أضف armeabi-v7a إن احتجت أجهزة قديمة)

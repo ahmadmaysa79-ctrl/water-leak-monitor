@@ -1,6 +1,5 @@
-# بناء APK على GitHub (مجاني للمستودعات العامة ضمن حدود الدقائق).
-# تشغيل يدوي: Actions → "Build Android APK" → Run workflow
-# المستودع يجب أن يكون جذر المشروع حيث يوجد buildozer.spec
+# بناء APK على GitHub — تشغيل يدوي: Actions → "Build Android APK" → Run workflow
+# جذر المستودع يجب أن يحتوي buildozer.spec
 
 name: Build Android APK
 
@@ -29,6 +28,22 @@ jobs:
             zlib1g-dev libncurses5-dev libncursesw5-dev cmake \
             libffi-dev libssl-dev
 
+      - name: Set JAVA_HOME
+        run: |
+          echo "JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> "$GITHUB_ENV"
+          echo "/usr/lib/jvm/java-17-openjdk-amd64/bin" >> "$GITHUB_PATH"
+
+      # يوفّر build-tools (بداخلها aidl) و platform و NDK — يحل خطأ "Aidl not found"
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: |
+            platform-tools
+            platforms;android-33
+            build-tools;33.0.2
+            ndk;25.2.9519653
+          log-accepted-android-sdk-licenses: true
+
       - name: Install Buildozer and Cython
         run: |
           python -m pip install --upgrade pip
@@ -37,6 +52,9 @@ jobs:
       - name: Build debug APK
         env:
           BUILDOZER_WARN_ON_ROOT: "0"
+          # Buildozer / p4a يستخدمان SDK النظام عند ضبطهما (بدلاً من مجلد ناقص بدون aidl)
+          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
         run: buildozer android debug
 
       - name: Upload APK artifact
