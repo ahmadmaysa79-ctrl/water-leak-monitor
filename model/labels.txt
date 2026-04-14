@@ -1,4 +1,8 @@
-dry
-low_humidity
-medium_humidity
-high_humidity
+Mixed Chemicals-( مواد كيميائية مختلطة)
+Partial Contamination - (إنذار تلوث جزئي)
+Soil & Impurities-(تربة وشوائب)
+Sodium Bicarbonate (بيكربونات الصوديوم)
+Acid Contamination تلوث حمضي )-خل)
+Salt تلوث أملاح) - ملح ) 
+ Organic-( مواد عضوية - قهوة)
+Detergent (منظفات - صابون)

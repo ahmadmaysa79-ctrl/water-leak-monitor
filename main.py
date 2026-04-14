@@ -352,7 +352,7 @@ class MainScreen(MDScreen):
         if not res.get("ok"):
             return
         if (
-            res.get("high_humidity")
+            res.get("alert", res.get("high_humidity"))
             and float(res.get("confidence") or 0) >= CONFIDENCE_ALERT
         ):
             log_event("camera_edge", f"{res.get('label')} conf={res.get('confidence')}")
