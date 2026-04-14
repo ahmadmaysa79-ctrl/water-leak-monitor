@@ -19,4 +19,4 @@
 
 6) ضع humidity_model.tflite و labels.txt و logo.png و alarm.wav في المشروع قبل البناء إن أردتها داخل الـ APK (source.include_exts يشملها).
 
-7) إن ظهر "Aidl not found": تم ضبط workflow GitHub على تثبيت Android SDK build-tools (33.0.2) عبر android-actions/setup-android. ادفع التحديثات ثم أعد تشغيل Action.
+7) إن ظهر "Aidl not found" أو "license is not accepted" لـ build-tools;37: Buildozer يستخدم ~/.buildozer/.../android-sdk. الـ workflow الحالي يقبل التراخيص عبر yes | sdkmanager --licenses، يثبت build-tools، ويربط مجلد Buildozer رمزياً بنفس ANDROID_SDK_ROOT.

@@ -46,10 +46,24 @@ jobs:
           python -m pip install --upgrade pip
           pip install "cython<3.12" buildozer
 
+      # Buildozer يستخدم ~/.buildozer/.../android-sdk وليس ANDROID_SDK_ROOT فقط؛ قد يُنشئ نسخة بلا build-tools فيفشل aidl. نربط المسار ونقبل التراخيص ونثبت build-tools.
+      - name: Licenses + build-tools + ربط SDK لمسار Buildozer
+        run: |
+          set -eux
+          test -n "${ANDROID_SDK_ROOT:-}"
+          SM="$(find "${ANDROID_SDK_ROOT}/cmdline-tools" -name sdkmanager -type f 2>/dev/null | head -1)"
+          test -n "$SM" && test -x "$SM"
+          yes | "$SM" --licenses || true
+          "$SM" "platform-tools" "platforms;android-33" "build-tools;33.0.2" || true
+          "$SM" "build-tools;37.0.0" || "$SM" "build-tools;34.0.0" || true
+          mkdir -p "${HOME}/.buildozer/android/platform"
+          rm -rf "${HOME}/.buildozer/android/platform/android-sdk"
+          ln -s "${ANDROID_SDK_ROOT}" "${HOME}/.buildozer/android/platform/android-sdk"
+          test -n "$(find "${ANDROID_SDK_ROOT}/build-tools" -name aidl -type f 2>/dev/null | head -1)"
+
       - name: Build debug APK
         env:
           BUILDOZER_WARN_ON_ROOT: "0"
-          # Buildozer / p4a يستخدمان SDK النظام عند ضبطهما (بدلاً من مجلد ناقص بدون aidl)
           ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
           ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
         run: buildozer android debug
