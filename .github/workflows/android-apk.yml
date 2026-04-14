@@ -59,6 +59,10 @@ jobs:
           mkdir -p "${HOME}/.buildozer/android/platform"
           rm -rf "${HOME}/.buildozer/android/platform/android-sdk"
           ln -s "${ANDROID_SDK_ROOT}" "${HOME}/.buildozer/android/platform/android-sdk"
+          # p4a/Buildozer ما زال يتوقع tools/bin/sdkmanager (SDK القديم) بينما cmdline-tools هو المسار الحالي
+          mkdir -p "${ANDROID_SDK_ROOT}/tools/bin"
+          ln -sf "$SM" "${ANDROID_SDK_ROOT}/tools/bin/sdkmanager"
+          test -x "${ANDROID_SDK_ROOT}/tools/bin/sdkmanager"
           test -n "$(find "${ANDROID_SDK_ROOT}/build-tools" -name aidl -type f 2>/dev/null | head -1)"
 
       - name: Build debug APK
