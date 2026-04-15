@@ -5,7 +5,7 @@ package.name = watermonitor
 package.domain = org.example.watermonitor
 
 source.dir = .
-source.include_exts = py,png,jpg,jpeg,kv,atlas,json,tflite,txt,wav,webp
+source.include_exts = py,png,jpg,kv,atlas
 
 version = 0.1.0
 
@@ -31,6 +31,6 @@ android.accept_sdk_license = True
 
 # تسريع البناء: هاتف حديث arm64 فقط (أضف armeabi-v7a إن احتجت أجهزة قديمة)
 android.archs = arm64-v8a, armeabi-v7a
-android.permissions = INTERNET,CAMERA,RECORD_AUDIO,VIBRATE,POST_NOTIFICATIONS
+android.permissions = CAMERA,INTERNET,VIBRATE
 # أندرويد 10+: مسار ملفات التطبيق
 android.allow_backup = True
