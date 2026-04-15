@@ -11,9 +11,7 @@ version = 0.1.0
 
 # tflite-runtime: وصفة p4a موجودة لكن قد تفشل حسب إصدار NDK — راجع BUILD_ANDROID.txt
 # pyjnius>=1.7.0: إصدارات أقدم تستخدم long في Cython وتفشل مع Python 3.11 / Cython 3
-requirements = python3,pyjnius==1.6.1,kivy,kivymd,pillow,numpy,plyer
-orientation = portrait
-fullscreen = 0
+requirements = python3,pyjnius==1.6.1,kivy,kivymd,pillow,numpy,plyer,cython==0.29.33
 
 [buildozer]
 
@@ -28,7 +26,6 @@ android.minapi = 24
 android.ndk_api = 24
 android.ndk = 23b
 # يطابق حزمة build-tools في CI (يحتوي aidl)
-android.build_tools = 33.0.2
 android.accept_sdk_license = True
 
 # تسريع البناء: هاتف حديث arm64 فقط (أضف armeabi-v7a إن احتجت أجهزة قديمة)
