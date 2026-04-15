@@ -25,6 +25,8 @@ warn_on_root = 1
 
 android.api = 33
 android.minapi = 24
+# يجب أن يطابق minapi — بدون هذا غالباً يبقى p4a على ndk-api=21 وقد يفشل البناء أو يلتبس السجل
+android.ndk_api = 24
 android.ndk = 25b
 # يطابق حزمة build-tools في CI (يحتوي aidl)
 android.build_tools = 33.0.2

@@ -70,9 +70,20 @@ jobs:
           BUILDOZER_WARN_ON_ROOT: "0"
           ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
           ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
-        run: buildozer android debug
+        run: |
+          set -euo pipefail
+          buildozer android debug 2>&1 | tee buildozer-full.log
+
+      - name: Upload Buildozer log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: buildozer-log
+          path: buildozer-full.log
+          if-no-files-found: warn
 
       - name: Upload APK artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: watermonitor-debug-apk
