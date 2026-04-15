@@ -11,7 +11,7 @@ version = 0.1.0
 
 # tflite-runtime: وصفة p4a موجودة لكن قد تفشل حسب إصدار NDK — راجع BUILD_ANDROID.txt
 # pyjnius>=1.7.0: إصدارات أقدم تستخدم long في Cython وتفشل مع Python 3.11 / Cython 3
-requirements = python3,pyjnius==1.7.0,kivy,kivymd,pillow,numpy,plyer,tflite-runtime
+requirements = python3,pyjnius==1.7.0,kivy,kivymd,pillow,numpy,plyer
 
 orientation = portrait
 fullscreen = 0
