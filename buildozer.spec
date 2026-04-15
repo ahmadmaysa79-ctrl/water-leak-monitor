@@ -1,5 +1,8 @@
-[app]
+[buildozer]
+log_level = 2
+warn_on_root = 1
 
+[app]
 title = منظومة طيف الماء الذكية
 package.name = watermonitor
 package.domain = org.example.watermonitor
@@ -9,9 +12,8 @@ source.include_exts = py,png,jpg,kv,atlas
 
 version = 0.1.0
 
-# tflite-runtime: وصفة p4a موجودة لكن قد تفشل حسب إصدار NDK — راجع BUILD_ANDROID.txt
-# pyjnius>=1.7.0: إصدارات أقدم تستخدم long في Cython وتفشل مع Python 3.11 / Cython 3
 requirements = python3,kivy==2.2.1,kivymd==1.2.0,numpy,pillow,plyer,pyjnius==1.6.1
+
 log_level = 2
 warn_on_root = 1
 
@@ -19,13 +21,9 @@ warn_on_root = 1
 android.ndk_api = 24
 android.api = 33
 android.minapi = 24
-# يجب أن يطابق minapi — بدون هذا غالباً يبقى p4a على ndk-api=21 وقد يفشل البناء أو يلتبس السجل
 android.ndk = 25b
 android.archs = arm64-v8a
-# يطابق حزمة build-tools في CI (يحتوي aidl)
 android.accept_sdk_license = True
 
-# تسريع البناء: هاتف حديث arm64 فقط (أضف armeabi-v7a إن احتجت أجهزة قديمة)
 android.permissions = CAMERA,INTERNET,VIBRATE
-# أندرويد 10+: مسار ملفات التطبيق
 android.allow_backup = True
